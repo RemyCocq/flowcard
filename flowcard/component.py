@@ -2,6 +2,12 @@ from abc import ABC, abstractmethod
 
 
 class Component(ABC):
+    @classmethod
+    @property
+    @abstractmethod
+    def name(cls) -> str:
+        raise NotImplemented
+
     def __init__(self):
         pass
 

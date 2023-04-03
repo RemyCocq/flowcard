@@ -1,5 +1,6 @@
 [tool.isort]
 profile = "black"
+sections = ["FUTURE", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
 
 [tool.autoflake]
 check = true
@@ -11,9 +12,7 @@ remove-unused-variables = true
 
 [tool.pytest.ini_options]
 addopts = "--cov=flowcard --cov-report html"
-pythonpath = [
-  ".", "flowcard"
-]
+pythonpath = [".", "flowcard"]
 
 [build-system]
 requires = ["setuptools>=46.4.0", "wheel"]

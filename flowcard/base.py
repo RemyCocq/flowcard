@@ -1,54 +1,59 @@
-import logging
+from base64 import b64encode
 
-from jinja2 import Template
-from flowcard.component import Component, Container
+import magic
+from jinja2 import Template  # noqa
 
+from flowcard.component import Component
 
-class Flowcard(Container):
-    def __init__(self, title=None, **kwargs):
-        super().__init__()
-        self.components = []
-        self.html_template = Template(
-            """<!DOCTYPE html>
-            <html>
-                <head>
-                <title>{{ title }}</title>
-                </head>
-                <body>
-                {{ content }}
-                </body>
-            </html>"""
-        )
-        self.markdown_template = Template(
-            """{{ content }}"""
-        )
-        self.kwargs = kwargs
-        if "content" in self.kwargs:
-            logging.warning("Arg content given in arguments, it is a reserved argument. Automatically removed.")
-            self.kwargs.pop("content")
-
-    def to_html(self):
-        content = "\n".join([component.to_html() for component in self.components])
-        self.kwargs.update({"content": content})
-        return self.html_template.render(**self.kwargs)
-
-    def to_markdown(self):
-        content = "\n".join([component.to_markdown() for component in self.components])
-        self.kwargs.update({"content": content})
-        return self.markdown_template.render(**self.kwargs)
+m = magic.Magic(flags=magic.MAGIC_MIME_TYPE)
 
 
 class Title(Component):
+    name = "title"
+    aliases = ["header"]
+
     def __init__(self, text):
         super().__init__()
         self.text = text
 
     def to_html(self):
-        return f"<h1>{self.text}</h1>"
+        return {"head": f"<title>{self.text}</title>", "body": f"<h1>{self.text}</h1>"}
 
     def to_markdown(self):
         return f"# {self.text}"
 
 
+class Favicon(Component):
+    name = "favicon"
+
+    def __init__(self, image_data):
+        super().__init__()
+        self.base64 = b64encode(image_data).decode("ascii")
+        self.mime = m.id_buffer(image_data)
+
+    def to_html(self):
+        return {
+            "head": f"<link rel='icon' type='{self.mime}'  href='data:{self.mime};base64,{self.base64}'/>",
+            "body": "",
+        }
+
+    def to_markdown(self):
+        return ""
 
 
+class Image(Component):
+    name = "image"
+
+    def __init__(self, image_data, width=None, height=None):
+        super().__init__()
+        self.base64 = b64encode(image_data).decode("ascii")
+        self.mime = m.id_buffer(image_data)
+
+    def to_html(self):
+        return {
+            "head": "",
+            "body": f"<img type='{self.mime}'  src='data:{self.mime};base64,{self.base64}'/>",
+        }
+
+    def to_markdown(self):
+        return f"<img type='{self.mime}'  src='data:{self.mime};base64,{self.base64}'/>"
