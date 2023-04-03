@@ -1,6 +1,9 @@
 [tool.isort]
 profile = "black"
 sections = ["FUTURE", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
+import_heading_stdlib = "Standard Library"
+import_heading_firstparty = "Flowcard"
+import_heading_thirdparty = "Third Party"
 
 [tool.autoflake]
 check = true

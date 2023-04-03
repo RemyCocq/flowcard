@@ -1,8 +1,11 @@
+# Standard Library
 from base64 import b64encode
 
+# Third Party
 import magic
 from jinja2 import Template  # noqa
 
+# Flowcard
 from flowcard.component import Component
 
 m = magic.Magic(flags=magic.MAGIC_MIME_TYPE)
