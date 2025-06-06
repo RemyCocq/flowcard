@@ -8,7 +8,8 @@ from jinja2 import Template  # noqa
 # Flowcard
 from flowcard.component import Component
 
-m = magic.Magic(flags=magic.MAGIC_MIME_TYPE)
+# Initialize magic for MIME type detection
+m = magic.Magic(mime=True)
 
 
 class Title(Component):

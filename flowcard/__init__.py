@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Union
 
 # Third Party
-from component import Container
+from flowcard.component import Container
 from jinja2 import Template
 
 # Flowcard
