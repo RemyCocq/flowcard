@@ -8,7 +8,7 @@ from flowcard.component import Container
 from jinja2 import Template
 
 # Flowcard
-from flowcard.base import Favicon, Image, Title, Header
+from flowcard.base import Favicon, Image, Title, Header, Code, Paragraph
 
 
 class Flowcard(Container):
@@ -16,7 +16,7 @@ class Flowcard(Container):
 
     def __init__(self, **kwargs):
         super().__init__()
-        self.register([Title, Favicon, Image, Header])
+        self.register([Title, Favicon, Image, Header, Code, Paragraph])
         self.components = []
         self.html_template = Template(
             """<!DOCTYPE html>
@@ -49,7 +49,7 @@ class Flowcard(Container):
         return self.html_template.render(**self.kwargs)
 
     def to_markdown(self):
-        content = "\n".join(
+        content = "\n\n".join(
             [_component.to_markdown() for _component in self.components]
         )
         self.kwargs.update({"content": content})
@@ -92,13 +92,20 @@ class Flowcard(Container):
 
 if __name__ == "__main__":
     fl = Flowcard()
-    fl.title("test title")
+
+    fl.title(text="test title")
+
+    # Create dummy files for testing if they don't exist
+    Path("favicon.ico").touch(exist_ok=True)
+    Path("favicon.png").touch(exist_ok=True)
 
     with open("favicon.ico", "rb") as image:
-        fl.favicon(image.read())
+        fl.favicon(image_data=image.read())
 
     with open("favicon.png", "rb") as image:
-        fl.image(image.read())
+        fl.image(image_data=image.read())
+    
+    fl.code(code='''def hello():\n    print("Hello")''', language="python")
 
-    fl.save("test.html")
-    fl.save("test.md")
+    fl.save(filepath="test.html")
+    fl.save(filepath="test.md")
