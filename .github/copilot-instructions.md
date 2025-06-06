@@ -91,3 +91,4 @@ def process_card(content: str, card_type: str = "default") -> str:
 - Specify `python_requires = ">=3.11"`
 - Use modern packaging tools and standards
 - Keep dependencies minimal and well-justified
+- When running command in terminal, use the package manager to precise the venv (like `uv run python ...` rather than just `python ...`)
