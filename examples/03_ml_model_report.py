@@ -19,6 +19,8 @@ try:
 except ImportError:
     MATPLOTLIB_AVAILABLE = False
     print("⚠️  Matplotlib/NumPy not installed. Install with: pip install matplotlib numpy")
+    # Fallback for math functions
+    import math
 
 # Flowcard
 import flowcard as fc
@@ -40,7 +42,10 @@ def generate_synthetic_training_data() -> Dict[str, List[float]]:
     
     for epoch in epochs:
         # Training loss decreases with noise
-        t_loss = 2.0 * np.exp(-epoch * 0.15) + random.uniform(0, 0.1)
+        if MATPLOTLIB_AVAILABLE:
+            t_loss = 2.0 * np.exp(-epoch * 0.15) + random.uniform(0, 0.1)
+        else:
+            t_loss = 2.0 * math.exp(-epoch * 0.15) + random.uniform(0, 0.1)
         train_loss.append(t_loss)
         
         # Validation loss similar but slightly higher
