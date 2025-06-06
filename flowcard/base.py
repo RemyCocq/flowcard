@@ -14,7 +14,6 @@ m = magic.Magic(mime=True)
 
 class Title(Component):
     name = "title"
-    aliases = ["header"]
 
     def __init__(self, text: str) -> None:
         super().__init__()
@@ -61,3 +60,17 @@ class Image(Component):
 
     def to_markdown(self) -> str:
         return f"<img type='{self.mime}'  src='data:{self.mime};base64,{self.base64}'/>"
+
+
+class Header(Component):
+    name = "header"
+
+    def __init__(self, text: str) -> None:
+        super().__init__()
+        self.text = text
+
+    def to_html(self) -> dict[str, str]:
+        return {"head": "", "body": f"<h2>{self.text}</h2>"}
+
+    def to_markdown(self) -> str:
+        return f"## {self.text}"

@@ -52,8 +52,11 @@ def main() -> None:
     card = fc.Flowcard()
     
     # Add title
-    card.title("FlowCard Basic Components Demo")
-    
+    card.title(text="FlowCard Basic Components Demo")
+
+    # Add a header
+    card.header(text="This is a Section Header (H2)")
+
     # Add an image from bytes data
     if PIL_AVAILABLE:
         sample_image_data = create_sample_image()

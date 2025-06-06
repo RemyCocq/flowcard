@@ -8,7 +8,7 @@ from flowcard.component import Container
 from jinja2 import Template
 
 # Flowcard
-from flowcard.base import Favicon, Image, Title
+from flowcard.base import Favicon, Image, Title, Header
 
 
 class Flowcard(Container):
@@ -16,7 +16,7 @@ class Flowcard(Container):
 
     def __init__(self, **kwargs):
         super().__init__()
-        self.register([Title, Favicon, Image])
+        self.register([Title, Favicon, Image, Header])
         self.components = []
         self.html_template = Template(
             """<!DOCTYPE html>
