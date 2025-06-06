@@ -25,8 +25,11 @@ class Flowcard:
 
 **Methods:**
 
-#### `to_html() -> str`
+#### `to_html(standalone: bool = True) -> str`
 Export the document as HTML.
+
+**Args:**
+- `standalone`: Generate self-contained HTML without external dependencies (default: True)
 
 **Returns:**
 - `str`: Complete HTML document string
@@ -35,8 +38,20 @@ Export the document as HTML.
 ```python
 fc = Flowcard()
 fc.title("My Document")
+
+# Generate standalone HTML (default - no external dependencies)
 html_content = fc.to_html()
+
+# Generate HTML with CDN dependencies (smaller file size)
+html_content = fc.to_html(standalone=False)
 ```
+
+**Standalone Mode Benefits:**
+- **Offline Compatible**: Works without internet connection
+- **No External Dependencies**: All CSS/JS embedded inline
+- **Future-Proof**: No dependency rot over time
+- **Single File**: Everything contained in one HTML file
+- **Secure**: No external resource loading
 
 #### `to_markdown() -> str`
 Export the document as Markdown.
@@ -469,6 +484,46 @@ fc.dataframe(df.describe(), caption="Dataset Statistics")
 - Interactive elements (collapsible, tabs)
 - Embedded images and charts
 - Responsive design
+
+#### Standalone HTML Generation
+
+FlowCard's **standalone HTML mode** is a key differentiator that generates completely self-contained documents:
+
+```python
+# Generate standalone HTML (default behavior)
+fc = Flowcard()
+fc.title("Offline Report")
+fc.image("chart.png")  # Automatically embedded as base64
+fc.chart(matplotlib_fig)  # Chart converted to embedded image
+
+# Standalone mode (default)
+standalone_html = fc.to_html(standalone=True)
+
+# Non-standalone mode (smaller files, requires internet)
+regular_html = fc.to_html(standalone=False)
+```
+
+**Standalone Mode Features:**
+- **Zero External Dependencies**: No CDN links to Bootstrap, jQuery, or other libraries
+- **Embedded Assets**: All images, charts, and media converted to base64 and embedded inline
+- **Offline Compatibility**: Documents work in air-gapped environments
+- **Future-Proof**: No risk of external resources becoming unavailable
+- **Single File Distribution**: Everything contained in one HTML file
+- **Security**: No external resource loading that could be blocked by firewalls
+
+**Technical Implementation:**
+- CSS frameworks embedded inline instead of CDN links
+- JavaScript libraries included in `<script>` tags
+- Images converted to `data:image/png;base64,` format
+- Charts rendered as embedded SVG or PNG data
+- Fonts embedded as base64 or web-safe fallbacks
+
+**Use Cases for Standalone Files:**
+- **Client Deliverables**: Reports that must work on any client system
+- **Compliance Documentation**: Long-term archival without dependency concerns  
+- **Restricted Environments**: Air-gapped networks, secure facilities
+- **Email Attachments**: Self-contained reports via email
+- **Offline Presentations**: Documents that work without internet
 
 ### Markdown Export
 - GitHub Flavored Markdown

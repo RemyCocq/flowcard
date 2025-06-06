@@ -8,6 +8,7 @@ FlowCard is a Python package that enables you to create beautiful documentation,
 
 - **Streamlit-like API**: Familiar and intuitive component-based syntax
 - **Multiple Export Formats**: Generate Markdown, HTML, and PDF outputs
+- **Standalone Files**: Generate self-contained documents that work offline without external libraries or internet connection
 - **Rich Components**: Support for text, images, charts, code blocks, and more
 - **Programmatic Content**: Build documentation dynamically during code execution
 - **ML/Data Science Friendly**: Perfect for model cards, experiment reports, and data analysis documentation
@@ -146,6 +147,35 @@ fc.to_pdf("sales_analysis.pdf")
 ```
 
 ## 🔧 Advanced Features
+
+### Standalone File Generation
+
+FlowCard generates **completely self-contained documents** that work offline without any external dependencies:
+
+```python
+import flowcard as fc
+
+# Generate standalone HTML with embedded assets
+fc.title("Offline Report")
+fc.image("chart.png")  # Image embedded as base64
+fc.chart(matplotlib_figure)  # Chart embedded as base64
+
+# Export with no external library dependencies
+fc.to_html("standalone_report.html", standalone=True)
+```
+
+**Key Benefits:**
+- **No Internet Required**: Documents work completely offline
+- **No External Libraries**: No CDN dependencies (Bootstrap, jQuery, etc.)
+- **Embedded Assets**: Images and charts embedded as base64 data
+- **Single File Distribution**: Share one file that contains everything
+- **Long-term Archival**: Documents remain viewable years later without dependency rot
+
+**Perfect for:**
+- Client deliverables that need to work on any system
+- Archival documentation for compliance
+- Reports shared in restricted environments
+- Email attachments that must be self-contained
 
 ### Custom Templates
 ```python
