@@ -4,6 +4,11 @@ version = "0.1.0"
 description = "Transform your code workflow into comprehensive documentation"
 readme = "README.md"
 requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [
+    { name = "RemyCocq" }
+]
+keywords = ["card", "html", "markdown"]
 dependencies = [
     "markdown>=3.8",
     "jinja2>=3.1.0",
@@ -11,6 +16,26 @@ dependencies = [
     "pillow>=11.2.1",
     "matplotlib>=3.10.3",
     "numpy>=2.2.6",
+]
+
+[project.urls]
+Homepage = "https://github.com/RemyCocq/flowcard"
+Repository = "https://github.com/RemyCocq/flowcard"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["flowcard"]
+
+[tool.uv]
+dev-dependencies = [
+    "pytest>=8.0.0",
+    "pytest-cov>=4.1.0",
+    "isort>=5.13.0",
+    "autoflake>=2.2.1",
+    "black>=24.0.0",
 ]
 
 [tool.isort]
@@ -31,7 +56,3 @@ remove-unused-variables = true
 [tool.pytest.ini_options]
 addopts = "--cov=flowcard --cov-report html"
 pythonpath = [".", "flowcard"]
-
-[build-system]
-requires = ["setuptools>=46.4.0", "wheel"]
-build-backend = "setuptools.build_meta"
