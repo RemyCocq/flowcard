@@ -9,6 +9,7 @@ FlowCard is a Python package that enables you to create beautiful documentation,
 - **Streamlit-like API**: Familiar and intuitive component-based syntax
 - **Multiple Export Formats**: Generate Markdown, HTML, and PDF outputs
 - **Standalone Files**: Generate self-contained documents that work offline without external libraries or internet connection
+- **Lightweight & Dependency-Free**: Minimal core dependencies, avoiding heavy wrappers or unnecessary layers
 - **Rich Components**: Support for text, images, charts, code blocks, and more
 - **Programmatic Content**: Build documentation dynamically during code execution
 - **ML/Data Science Friendly**: Perfect for model cards, experiment reports, and data analysis documentation
@@ -213,6 +214,19 @@ Rich, interactive documents with styling and JavaScript support.
 
 ### PDF
 Professional reports ready for sharing and printing.
+
+## 🚧 Roadmap & TODO
+
+We are working on making FlowCard the ultimate tool for ML Model Cards, keeping it lightweight and dependency-free. Here is what's coming next:
+
+- [ ] **Lightweight UI Components**
+    - [ ] `metric` component (Display key metrics with deltas)
+    - [ ] `badge` component (For licenses, status, tags)
+    - [ ] `json` viewer (For configurations and hyperparameters)
+    - [ ] `citation` block (BibTeX formatting)
+- [ ] **Model Card Utilities**
+    - [ ] Standard Model Card templates (Scaffolding for common sections)
+    - [ ] Metadata helpers (Versioning, Author info)
 
 ## 🤝 Contributing
 
